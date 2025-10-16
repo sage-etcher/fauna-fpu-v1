@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+
+import math
+import sys
+
+EXPONENT_BITS = 5
+EXPONENT_MAX  = 2**EXPONENT_BITS
+EXPONENT_ZERO = 2**(EXPONENT_BITS-1) - 1
+
+MANTISSA_BITS = 10
+MANTISSA_MAX  = 2**MANTISSA_BITS
+
+def sign(num: float) -> int:
+	return 0 if num >= 0 else 1
+
+def float_to_string(input: float) -> str:
+	n = math.floor(math.log2(abs(input)))
+
+	sign_bit = sign(input)
+	exponent = EXPONENT_ZERO + n
+	mantissa = math.floor((abs(input / 2**n) - 1) * MANTISSA_MAX)
+	
+	if exponent == 0:
+		raise Exception('subnormals not implemented')
+
+	# overflow into +-inf
+	if exponent >= EXPONENT_MAX - 1 or exponent < 0:
+		exponent = EXPONENT_MAX - 1
+		mantissa = 0
+
+	return '{0:01b} {1:05b} {2:010b}'.format(sign_bit, exponent, mantissa)
+
+def string_to_float(input: str) -> float:
+	input_arr = input.split(' ')
+
+	sign_bit = int(input_arr[0], base = 2)
+	exponent = int(input_arr[1], base = 2)
+	mantissa = int(input_arr[2], base = 2)
+
+	if exponent == EXPONENT_MAX - 1:
+		return float('-inf' if sign_bit == 1 else 'inf')
+
+	result = float(mantissa) / MANTISSA_MAX + 1
+	result *= 2**(exponent - EXPONENT_ZERO)
+	result *= -2 * sign_bit + 1
+
+	return result
+
+
+def main():
+	if len(sys.argv) < 2:
+		print("usage: fp16calc <number>")
+		return
+
+	for input_str in sys.argv[1:]:
+		input = float(input_str)
+		representation = float_to_string(input)
+		approximation  = string_to_float(representation)
+
+		print(f'{input: 12,.3f} ~= {approximation: 12,.3f}  ({representation})')
+
+
+if __name__ == "__main__":
+	main()
+
+# end of file
