@@ -23,8 +23,8 @@ program keeps track of stack pointers
 - `10100 ASIN      TOS = asin(TOS)`
 - `10101 ACOS      TOS = acos(TOS)`
 - `10110 ATAN      TOS = atan(TOS)`
-- `10111 LOG       TOS = log\_10(TOS)`
-- `11000 LN        TOS = log\_e(TOS)`
+- `10111 LOG       TOS = log_10(TOS)`
+- `11000 LN        TOS = log_e(TOS)`
 - `11001 EXP       TOS = exp(TOS)`
 - `11010 PWR       NOS = pow(NOS, TOS), pop stack`
 
@@ -36,5 +36,6 @@ program keeps track of stack pointers
 - `00011 POP       pop stack`
 - `00100 PUPI      push stack, pi(3.14)`
 - `00101 XCHG      exchange TOS and NOS`
+
 
 
