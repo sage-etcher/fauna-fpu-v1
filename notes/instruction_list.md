@@ -9,10 +9,10 @@ program keeps track of stack pointers
 
 ## maths(4)
 
-- `01000 ADD       TOS = TOS + NOS, pop stack`
-- `01001 SUB       TOS = TOS - NOS, pop stack`
-- `01010 MUL       TOS = TOS * NOS, pop stack`
-- `01011 DIV       TOS = TOS / NOS, pop stack`
+- `01000 ADD       NOS = TOS + NOS, pop stack`
+- `01001 SUB       NOS = TOS - NOS, pop stack`
+- `01010 MUL       NOS = TOS * NOS, pop stack`
+- `01011 DIV       NOS = TOS / NOS, pop stack`
 
 ## derived(11)
 
